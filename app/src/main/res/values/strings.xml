@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">DataSavingPractice</string>
+    <string name="textName">Name :</string>
+    <string name="textPhone">Phone :</string>
+    <string name="hintName">ex. john Doe</string>
+    <string name="hintPhone">+201234567890</string>
+    <string name="buttonNext">Next</string>
+    <string name="sharedPrefText">Shared Preferences</string>
+    <string name="buttonSave">Save</string>
+    <string name="buttonShow">Show</string>
+    <string name="defaultString">No Thing To Show</string>
+    <string name="buttonBack">Back</string>
+    <string name="SaveInternallytxt">Save To Internal Storage</string>
+    <string name="sqliteTitle">"Save to SQLITE "</string>
+</resources>
