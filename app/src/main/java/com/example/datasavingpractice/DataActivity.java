@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
@@ -65,6 +68,8 @@ public class DataActivity extends AppCompatActivity {
             tvName.setText(userName);
             tvPhone.setText(userPhone);
         });
+
+        /**Low Level Input Readers/Writers**/
         saveInternal.setOnClickListener(view -> {
             tvName.setText("");
             tvPhone.setText("");
@@ -79,26 +84,54 @@ public class DataActivity extends AppCompatActivity {
             }
 
         });
+
         showInternal.setOnClickListener(view -> {
             try {
-                FileInputStream fileName = openFileInput("contact");
-                InputStreamReader InputRead = new InputStreamReader(fileName);
-
-                char[] inputBuffer = new char[30];
-                StringBuilder data = new StringBuilder();
-                int charRead;
-
-                while ((charRead = InputRead.read(inputBuffer)) > 0) {
-                    data.append(String.copyValueOf(inputBuffer, 0, charRead));
-                }
-                InputRead.close();
-                String[] details = data.toString().split("-");
+                FileInputStream fis = openFileInput("contact");
+                byte[] bytes = new byte[fis.available()];
+                fis.read(bytes);
+                String data = new String(bytes);
+                String[] details = data.split("-");
                 tvName.setText(details[0]);
                 tvPhone.setText(details[1]);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+
+        /**High Level Input Readers/Writers**/
+//        saveInternal.setOnClickListener(view -> {
+//            tvName.setText("");
+//            tvPhone.setText("");
+//            String data = name + "-" + phone;
+//            try {
+//                FileOutputStream outputStream = openFileOutput("contact", Context.MODE_PRIVATE);
+//                DataOutputStream dos = new DataOutputStream(outputStream);
+//                dos.writeUTF(data);
+//                dos.flush();
+//                outputStream.close();
+//                dos.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        });
+//
+//        showInternal.setOnClickListener(view -> {
+//            try {
+//                FileInputStream contactsFile = openFileInput("contact");
+//                DataInputStream dis = new DataInputStream(contactsFile);
+//                String data = dis.readUTF();
+//                contactsFile.close();
+//                dis.close();
+//                String[] details = data.toString().split("-");
+//                tvName.setText(details[0]);
+//                tvPhone.setText(details[1]);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+
 
         saveSQL.setOnClickListener(view -> {
             tvName.setText("");
